@@ -1,14 +1,62 @@
 # %%
 
 import numpy as np
-from pkg_resources import invalid_marker
 import scipy
 import matplotlib.pyplot as plt
 
 # %%
 
+# Como funciona a simulação via questionario:
+# 1. Temos uma população de consumidores
+# 2. Temos uma demanda inicial ficticia
+# 3. Para cada consumidor, perguntamos quanto ele compraria do produto por aquele preço
+# 4. D_i = a - bP, onde a e b são parametros individuais que são tirados de uma distribuição X e P são os diferentes preços
+
+D_T = 400
+
+preco = np.arange(100, 1, -10)
+demanda = np.arange(1,11)
+plt.plot(demanda, preco)
+plt.show()
+
+# Preço 1
+b1 = np.random.normal(0, 1, 1)
+
+# Preço 1
+b2 = np.random.normal(0, 1, 1)
+
+# Preço 1
+b3 = np.random.normal(0, 1, 1)
+
+P = [10, 100, 1000]
+b = np.absolute([b1, b2, b3])
+
+demandas = []
+
+# FIX: Precisamos de um loop por preço e por demanda individual
+for i in range(len(b)):
+    D_i = np.array([])
+    for p in P:
+        d_i = 100 - b[i] * p
+        np.append(D_i, d_i)
+    D_i[D_i > D_T] = 400
+    D_i[D_i <= 0] = 0
+    demandas.append(D_i)
+
+demandas
+
+# %%
+
+# Plotar as demandas individuais baseadas no preço
+plt.plot(demandas[0], P)
+
+b
+
+
+# %%
+
 # Essa é a demanda "assumida", que avisamos para todos os consumidores
-# Demanda se mantém constante
+# Demanda se mantém constante entre cada rodada
 D_T = 400
 
 # Total de consumidores que vão responder o survey
@@ -79,6 +127,9 @@ plt.hist(fp)
 
 
 # %%
+
+# Veblen
+# d = a - bP + c(Pc-P),onde c é o quanto a pessoa se importa com o consumo conspicuo (0 ~ 1). Pc é o preço conspicuo
 
 
 
